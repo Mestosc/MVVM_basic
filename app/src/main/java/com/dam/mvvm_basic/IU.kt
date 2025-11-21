@@ -42,6 +42,7 @@ fun IU(miViewModel: MyViewModel) {
         verticalArrangement = Arrangement.SpaceAround)
     {
         Column {
+            MostrarCuentaAtras(myViewModel = miViewModel)
             Row {
                 // creo un boton rojo
                 Boton(miViewModel, Colores.CLASE_ROJO)
@@ -67,9 +68,9 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
 
     // para que sea mas facil la etiqueta del log
     val TAG_LOG = "miDebug"
-
+    val estadoAux = miViewModel.estadoAuxiliar.collectAsState().value
     // variable para el estado del boton
-    var _activo = miViewModel.estadoActual.collectAsState().value.boton_activo
+    var _activo = miViewModel.comprobarAcitvo(estadoAux) ?: miViewModel.estadoActual.collectAsState().value.boton_activo
 
 
     // separador entre botones
@@ -90,7 +91,11 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
         Text(text = enum_color.txt, fontSize = 10.sp)
     }
 }
-
+@Composable
+fun MostrarCuentaAtras(myViewModel: MyViewModel) {
+    val cuentaAtrasValor = myViewModel.numeroCuentaAtras.collectAsState().value
+    Text(text = cuentaAtrasValor.toString())
+}
 @Composable
 fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
 

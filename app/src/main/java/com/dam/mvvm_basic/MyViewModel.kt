@@ -20,7 +20,8 @@ class MyViewModel(): ViewModel() {
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
     var _numbers = MutableStateFlow(0)
-
+    var numeroCuentaAtras = MutableStateFlow(10)
+    var estadoAuxiliar = MutableStateFlow(EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS)
     // inicializamos variables cuando instanciamos
     init {
         // estado inicial
@@ -43,6 +44,7 @@ class MyViewModel(): ViewModel() {
         Datos.numero = numero
         // cambiamos estado, por lo tanto la IU se actualiza
         estadoActual.value = Estados.ADIVINANDO
+        cuentaAtrasManejar()
     }
 
     /**
@@ -68,7 +70,33 @@ class MyViewModel(): ViewModel() {
             false
         }
     }
+    fun cuentaAtrasManejar() {
+        viewModelScope.launch {
+            for (i in 0..10) {
+                if (numeroCuentaAtras.value>0) {
+                numeroCuentaAtras.value -= 1
+                }
+                if (numeroCuentaAtras.value==5) {
+                    estadoAuxiliar.value = EstadosAuxiliares.MITAD_CUENTA_ATRAS
+                }
+                if (numeroCuentaAtras.value==0) {
+                    estadoAuxiliar.value = EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS
+                }
+                    delay(1000)
+            }
+        }
+    }
 
+    /**
+     * Comprobar si el estado es que permite actividad en el juego
+     */
+    fun comprobarAcitvo(estado: EstadosAuxiliares): Boolean? {
+        return when (estado) {
+            EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS -> false
+            EstadosAuxiliares.MITAD_CUENTA_ATRAS -> null
+            EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS -> null
+        }
+    }
     /**
      * Corutina que lanza estados auxiliares
      */
@@ -76,15 +104,15 @@ class MyViewModel(): ViewModel() {
         viewModelScope.launch {
             // inicializamos estado auxiliar
             // los recorremos
-            var estadoAux = EstadosAuxiliares.AUX1
+            var estadoAux = EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
             Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
             delay(1500)
-            estadoAux = EstadosAuxiliares.AUX2
+            estadoAux = EstadosAuxiliares.MITAD_CUENTA_ATRAS
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
             Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
             delay(1500)
-            estadoAux = EstadosAuxiliares.AUX3
+            estadoAux = EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
             Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
             delay(1500)
