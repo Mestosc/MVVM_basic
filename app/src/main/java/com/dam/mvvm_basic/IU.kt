@@ -126,7 +126,7 @@ fun Boton_Start(enum_color: Colores) {
         // colors =  ButtonDefaults.buttonColors(enum_color.color),
         colors = ButtonDefaults.buttonColors(_color),
         onClick = {
-            Log.d(TAG_LOG, "Dentro del Start - Estado: ${miViewModel.estadoActual.value.name}")
+            Log.d(TAG_LOG, "Dentro del Start - Estado: ${MyViewModel.estadoActual.value.name}")
             MyViewModel.crearRandom()
         },
         modifier = Modifier
