@@ -20,7 +20,7 @@ class MyViewModel(): ViewModel() {
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
     var _numbers = MutableStateFlow(0)
-    var numeroCuentaAtras = MutableStateFlow(10)
+    var numeroCuentaAtras = MutableStateFlow(5)
     private var estadoAuxiliar = EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS
     // inicializamos variables cuando instanciamos
     init {
