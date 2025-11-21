@@ -14,3 +14,6 @@ En esta rama vamos a usar corrutinas:
 
 - En el ViewModel con la función `estadosAuxiliares` utilizando `viewModelScope.launch { }`
 - En la IU con `LaunchedEffect(_activo)` en el botón start
+
+## Ejercicio 2
+Aqui lo que habia que hacer es cambiar la palabra clave ``class`` por `object` quitar los parentesis del nombre de la clase desinstanciarlo del MainActivity donde estaba instanciado quitar todos los sitios donde lo pasabamos por parametro y usarlo directamente
