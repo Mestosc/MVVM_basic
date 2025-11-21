@@ -68,9 +68,8 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
 
     // para que sea mas facil la etiqueta del log
     val TAG_LOG = "miDebug"
-    val estadoAux = miViewModel.estadoAuxiliar.collectAsState().value
     // variable para el estado del boton
-    var _activo = miViewModel.comprobarAcitvo(estadoAux) ?: miViewModel.estadoActual.collectAsState().value.boton_activo
+    var _activo = miViewModel.estadoActual.collectAsState().value.boton_activo
 
 
     // separador entre botones

@@ -21,7 +21,7 @@ class MyViewModel(): ViewModel() {
     // usamos mutable, ya que la queremos modificar
     var _numbers = MutableStateFlow(0)
     var numeroCuentaAtras = MutableStateFlow(10)
-    var estadoAuxiliar = MutableStateFlow(EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS)
+    private var estadoAuxiliar = EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS
     // inicializamos variables cuando instanciamos
     init {
         // estado inicial
@@ -77,12 +77,13 @@ class MyViewModel(): ViewModel() {
                 numeroCuentaAtras.value -= 1
                 }
                 if (numeroCuentaAtras.value==5) {
-                    estadoAuxiliar.value = EstadosAuxiliares.MITAD_CUENTA_ATRAS
+                    estadoAuxiliar = EstadosAuxiliares.MITAD_CUENTA_ATRAS
                 }
                 if (numeroCuentaAtras.value==0) {
-                    estadoAuxiliar.value = EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS
+                    estadoAuxiliar = EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS
                 }
-                    delay(1000)
+                comprobarAcitvo()
+                delay(1000)
             }
         }
     }
@@ -90,11 +91,9 @@ class MyViewModel(): ViewModel() {
     /**
      * Comprobar si el estado es que permite actividad en el juego
      */
-    fun comprobarAcitvo(estado: EstadosAuxiliares): Boolean? {
-        return when (estado) {
-            EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS -> false
-            EstadosAuxiliares.MITAD_CUENTA_ATRAS -> null
-            EstadosAuxiliares.EMPEZANDO_CUENTA_ATRAS -> null
+    fun comprobarAcitvo() {
+        if (estadoAuxiliar== EstadosAuxiliares.FINALIZANDO_CUENTA_ATRAS) {
+            estadoActual.value = Estados.INICIO
         }
     }
     /**
