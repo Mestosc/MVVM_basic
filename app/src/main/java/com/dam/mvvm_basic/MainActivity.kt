@@ -11,13 +11,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // inicializamos ViewModel
-        val miViewModel: MyViewModel = MyViewModel()
 
         enableEdgeToEdge()
         setContent {
             MVVM_basicTheme {
                 // llamamos a la IU pasando el ViewModel
-                IU(miViewModel)
+                IU()
             }
         }
     }

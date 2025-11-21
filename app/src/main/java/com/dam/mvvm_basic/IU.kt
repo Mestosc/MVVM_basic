@@ -31,7 +31,7 @@ import androidx.compose.runtime.collectAsState
  */
 
 @Composable
-fun IU(miViewModel: MyViewModel) {
+fun IU() {
     // para que sea mas facil la etiqueta del log
     // val TAG_LOG = "miDebug"
 
@@ -44,32 +44,32 @@ fun IU(miViewModel: MyViewModel) {
         Column {
             Row {
                 // creo un boton rojo
-                Boton(miViewModel, Colores.CLASE_ROJO)
+                Boton(Colores.CLASE_ROJO)
 
                 // creo un boton verde
-                Boton(miViewModel, Colores.CLASE_VERDE)
+                Boton(Colores.CLASE_VERDE)
             }
             Row {
                 // creo un boton azul
-                Boton(miViewModel, Colores.CLASE_AZUL)
+                Boton(Colores.CLASE_AZUL)
 
                 // creo un boton amarillo
-                Boton(miViewModel, Colores.CLASE_AMARILLO)
+                Boton(Colores.CLASE_AMARILLO)
             }
         }
         // creao boton Start
-        Boton_Start(miViewModel, Colores.CLASE_START)
+        Boton_Start(Colores.CLASE_START)
     }
 }
 
 @Composable
-fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
+fun Boton(enum_color: Colores) {
 
     // para que sea mas facil la etiqueta del log
     val TAG_LOG = "miDebug"
 
     // variable para el estado del boton
-    var _activo = miViewModel.estadoActual.collectAsState().value.boton_activo
+    var _activo = MyViewModel.estadoActual.collectAsState().value.boton_activo
 
 
     // separador entre botones
@@ -81,7 +81,7 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
         colors =  ButtonDefaults.buttonColors(enum_color.color),
         onClick = {
             Log.d(TAG_LOG, "Dentro del boton: ${enum_color.ordinal}")
-            miViewModel.comprobar(enum_color.ordinal)
+            MyViewModel.comprobar(enum_color.ordinal)
                   },
         modifier = Modifier
             .size((80).dp, (40).dp)
@@ -92,13 +92,13 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
 }
 
 @Composable
-fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
+fun Boton_Start(enum_color: Colores) {
 
     // para que sea mas facil la etiqueta del log
     val TAG_LOG = "miDebug"
 
     // variable para el estado del boton
-    var _activo = miViewModel.estadoActual.collectAsState().value.start_activo
+    var _activo = MyViewModel.estadoActual.collectAsState().value.start_activo
 
     // variable para el color del boton usado en el LaunchedEffect
     var _color by remember { mutableStateOf(enum_color.color) }
@@ -127,7 +127,7 @@ fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
         colors = ButtonDefaults.buttonColors(_color),
         onClick = {
             Log.d(TAG_LOG, "Dentro del Start - Estado: ${miViewModel.estadoActual.value.name}")
-            miViewModel.crearRandom()
+            MyViewModel.crearRandom()
         },
         modifier = Modifier
             .size((100).dp, (40).dp)
