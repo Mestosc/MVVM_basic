@@ -14,3 +14,8 @@ En esta rama vamos a usar corrutinas:
 
 - En el ViewModel con la función `estadosAuxiliares` utilizando `viewModelScope.launch { }`
 - En la IU con `LaunchedEffect(_activo)` en el botón start
+
+## Ejercicio 1
+Para el ejercicio 1 he aprovechado 3 estados auxiliares que son la cuenta atras esta empezando, que esta a la mitad y que acabo
+despues de cada cambio de numero a la cuenta atras compruebo si se dan las condiciones para los cambios de estado y luego verifico si el estadoAuxiliar actual es el de que la cuenta atras finalizo
+cambio el estado principal actual a INICIO y como es un MutableStateFlow eso afecta directamente a la interfaz
