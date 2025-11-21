@@ -76,7 +76,7 @@ class MyViewModel(): ViewModel() {
                 if (numeroCuentaAtras.value>0) {
                 numeroCuentaAtras.value -= 1
                 }
-                if (numeroCuentaAtras.value==5) {
+                if (numeroCuentaAtras.value==3) {
                     estadoAuxiliar = EstadosAuxiliares.MITAD_CUENTA_ATRAS
                 }
                 if (numeroCuentaAtras.value==0) {
